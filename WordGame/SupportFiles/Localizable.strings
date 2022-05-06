@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  WordGame
+
+  Created by Joel Kingsley on 05/05/2022.
+  
+*/
+
+"gameScreenCorrectButtonLabel" = "Correct";
+"gameScreenWrongButtonLabel" = "Wrong";
+"gameScreenCorrectAttemptsCounter" = "Correct attempts: %d";
+"gameScreenWrongAttemptsCounter" = "Wrong attempts: %d";
