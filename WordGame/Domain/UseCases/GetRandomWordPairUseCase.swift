@@ -27,7 +27,7 @@ class GetRandomWordPairUseCase {
 extension GetRandomWordPairUseCase {
     func execute() -> Result<WordPair, Error> {
         /**
-         Load all words from file and set correct and wrong tra
+         Load all words from file and set correct and wrong translations
          */
         if words == nil || words?.isEmpty == true,
            let allWords = wordPairRepository.getAllWords()
