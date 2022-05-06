@@ -99,6 +99,7 @@ class GameViewController: UIViewController {
         
         // Start game
         getRandomWordPair()
+        initializeAndStartQuestionTimer()
     }
     
     // MARK: - UI Helpers
@@ -162,13 +163,48 @@ class GameViewController: UIViewController {
     func validateUserResponse(isCorrect: Bool) {
         switch gameViewModel.validateUserResponse(isCorrect: isCorrect) {
         case let .success((correctAttempts, inCorrectAttempts)):
+            /*
+             Update correct attempts and incorrect attempts after validating user response.
+             
+             Then check and load next question.
+             */
             correctAttemptsLabel.text = LocalizationKey.gameScreenCorrectAttemptsCounter(attempts: correctAttempts).string
             wrongAttemptsLabel.text = LocalizationKey.gameScreenWrongAttemptsCounter(attempts: inCorrectAttempts).string
             
-            // Go to next word pair
-            getRandomWordPair()
+            checkAndLoadNextQuestion()
         case let .failure(error):
             fatalError("Unexpectedly got error while validating user response: \(error)")
         }
+    }
+    
+    func initializeAndStartQuestionTimer() {
+        gameViewModel.initializeAndStartQuestionTimer { [weak self] in
+            /*
+             NOTE: If timer gets fired, it means that 5 seconds has passes, and the attempt is considered as incorrect.
+             
+             Update incorrect attempts, and check and load next question.
+             */
+            self?.gameViewModel.inCorrectAttempts += 1
+            guard let inCorrectAttempts = self?.gameViewModel.inCorrectAttempts else {
+                fatalError("Unexpectedly got error while handling timer fire")
+            }
+            self?.wrongAttemptsLabel.text = LocalizationKey.gameScreenWrongAttemptsCounter(
+                attempts: inCorrectAttempts).string
+            
+            self?.checkAndLoadNextQuestion()
+        }
+    }
+    
+    func checkAndLoadNextQuestion() {
+        // Check if game should end
+        if gameViewModel.checkIfGameShouldEnd() {
+            exit(-1)
+        }
+        
+        // Go to next word pair
+        getRandomWordPair()
+        
+        // Reset and start question timer
+        gameViewModel.resetQuestionTimer()
     }
 }

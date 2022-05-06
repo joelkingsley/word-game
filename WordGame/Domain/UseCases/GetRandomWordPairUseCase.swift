@@ -15,6 +15,8 @@ class GetRandomWordPairUseCase {
     
     var words: [WordPair]?
     
+    let probabilityOfWrongWordPair = 0.75
+    
     init(
         wordPairRepository: WordPairRepository
     ) {
@@ -31,13 +33,13 @@ extension GetRandomWordPairUseCase {
            let allWords = wordPairRepository.getAllWords()
         {
             /**
-             Only makes sense to determine wrong word pairs if there is more than 1 word pair
+             Only determine wrong word pairs if there is more than 1 word pair in repository
              */
             if allWords.count > 1 {
                 /**
                  Determine set of indices that should have wrong word pairs
                  */
-                let numberOfWrongWordPairs = Int(Float(allWords.count)*Float(0.75))
+                let numberOfWrongWordPairs = Int(Float(allWords.count)*Float(probabilityOfWrongWordPair))
                 var set = Set<Int>()
                 while set.count < numberOfWrongWordPairs {
                     set.insert(Int.random(in: 0..<allWords.count))

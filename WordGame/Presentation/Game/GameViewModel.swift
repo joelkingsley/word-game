@@ -22,12 +22,19 @@ class GameViewModel {
     
     var currentWordPair: WordPair?
     
+    var wordPairsSeen: Int = 0
+    
+    var questionTimer: QuestionTimer?
+    
+    var questionTimerSecondsRemaining: Int = 0
+    
     // MARK: - Methods
     
     /// Gets a random word pair
     func getRandomWordPair() -> Result<WordPair, Error> {
         return getRandomWordPairUseCase.execute().map { [weak self] wordPair in
             self?.currentWordPair = wordPair
+            self?.wordPairsSeen += 1
             return wordPair
         }
     }
@@ -44,5 +51,22 @@ class GameViewModel {
             inCorrectAttempts += 1
         }
         return .success((correctAttempts, inCorrectAttempts))
+    }
+    
+    /// Initializes and starts the question timer
+    func initializeAndStartQuestionTimer(fireHandler: @escaping () -> Void) {
+        questionTimer = QuestionTimer(fireHandler: fireHandler)
+        questionTimer?.start()
+    }
+    
+    /// Resets running timer and creates a new timer for 5 seconds
+    func resetQuestionTimer() {
+        questionTimer?.stop()
+        questionTimer?.start()
+    }
+    
+    /// Game logic to check if game should end
+    func checkIfGameShouldEnd() -> Bool {
+        return inCorrectAttempts >= 3 || wordPairsSeen >= 15
     }
 }
