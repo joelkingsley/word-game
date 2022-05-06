@@ -1,5 +1,5 @@
 //
-//  QuestionTimer.swift
+//  RoundTimer.swift
 //  WordGame
 //
 //  Created by Joel Kingsley on 06/05/2022.
@@ -10,7 +10,7 @@ import Foundation
 /**
  Countdown timer for each question
  */
-class QuestionTimer {
+class RoundTimer {
     var timer = Timer()
     
     private let timePerQuestionInSeconds = 5

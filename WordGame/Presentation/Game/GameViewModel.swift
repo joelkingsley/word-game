@@ -24,9 +24,9 @@ class GameViewModel {
     
     var wordPairsSeen: Int = 0
     
-    var questionTimer: QuestionTimer?
+    var roundTimer: RoundTimer?
     
-    var questionTimerSecondsRemaining: Int = 0
+    var roundTimerSecondsRemaining: Int = 0
     
     // MARK: - Methods
     
@@ -54,15 +54,15 @@ class GameViewModel {
     }
     
     /// Initializes and starts the question timer
-    func initializeAndStartQuestionTimer(fireHandler: @escaping () -> Void) {
-        questionTimer = QuestionTimer(fireHandler: fireHandler)
-        questionTimer?.start()
+    func initializeAndStartRoundTimer(fireHandler: @escaping () -> Void) {
+        roundTimer = RoundTimer(fireHandler: fireHandler)
+        roundTimer?.start()
     }
     
     /// Resets running timer and creates a new timer for 5 seconds
-    func resetQuestionTimer() {
-        questionTimer?.stop()
-        questionTimer?.start()
+    func resetRoundTimer() {
+        roundTimer?.stop()
+        roundTimer?.start()
     }
     
     /// Game logic to check if game should end

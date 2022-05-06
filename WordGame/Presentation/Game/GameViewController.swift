@@ -99,7 +99,7 @@ class GameViewController: UIViewController {
         
         // Start game
         getRandomWordPair()
-        initializeAndStartQuestionTimer()
+        initializeAndStartRoundTimer()
     }
     
     // MARK: - UI Helpers
@@ -177,8 +177,8 @@ class GameViewController: UIViewController {
         }
     }
     
-    func initializeAndStartQuestionTimer() {
-        gameViewModel.initializeAndStartQuestionTimer { [weak self] in
+    func initializeAndStartRoundTimer() {
+        gameViewModel.initializeAndStartRoundTimer { [weak self] in
             /*
              NOTE: If timer gets fired, it means that 5 seconds has passes, and the attempt is considered as incorrect.
              
@@ -205,6 +205,6 @@ class GameViewController: UIViewController {
         getRandomWordPair()
         
         // Reset and start question timer
-        gameViewModel.resetQuestionTimer()
+        gameViewModel.resetRoundTimer()
     }
 }
