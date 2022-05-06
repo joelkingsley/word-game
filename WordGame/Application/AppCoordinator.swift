@@ -25,6 +25,10 @@ class AppCoordinator: NavigationCoordinator {
         self.navigationController = navigationController
     }
     
+    deinit {
+        print(".... AppCoordinator deinitialized")
+    }
+    
     // MARK: - Navigation Methods
     
     func start() {
@@ -35,5 +39,7 @@ class AppCoordinator: NavigationCoordinator {
 }
 
 extension AppCoordinator: GameCoordinatorDelegate {
-    
+    func exitApp() {
+        exit(-1)
+    }
 }

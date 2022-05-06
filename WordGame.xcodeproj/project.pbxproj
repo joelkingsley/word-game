@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F11406A328250DA900ED2260 /* RoundTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406A228250DA900ED2260 /* RoundTimer.swift */; };
+		F11406A8282595BE00ED2260 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406A7282595BE00ED2260 /* GameState.swift */; };
 		F1F05BF82823865000FDF704 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05BF72823865000FDF704 /* AppDelegate.swift */; };
 		F1F05BFA2823865000FDF704 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05BF92823865000FDF704 /* SceneDelegate.swift */; };
 		F1F05C012823865200FDF704 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1F05C002823865200FDF704 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		F11406A228250DA900ED2260 /* RoundTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTimer.swift; sourceTree = "<group>"; };
+		F11406A7282595BE00ED2260 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		F1F05BF42823865000FDF704 /* WordGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F05BF72823865000FDF704 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1F05BF92823865000FDF704 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F05C3F2823B12A00FDF704 /* WordPair.swift */,
+				F11406A7282595BE00ED2260 /* GameState.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				F1F05C402823B12A00FDF704 /* WordPair.swift in Sources */,
 				F1F05C3128238F6A00FDF704 /* GameViewController.swift in Sources */,
 				F1F05C2F28238C9800FDF704 /* GameCoordinator.swift in Sources */,
+				F11406A8282595BE00ED2260 /* GameState.swift in Sources */,
 				F1F05C3928239DA900FDF704 /* LocalizationKey.swift in Sources */,
 				F1F05C2A28238B9A00FDF704 /* Coordinator.swift in Sources */,
 				F1F05C2C28238BF400FDF704 /* AppCoordinator.swift in Sources */,

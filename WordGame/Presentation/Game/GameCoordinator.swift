@@ -11,7 +11,7 @@ import UIKit
 // MARK: - GameCoordinatorDelegate
 
 protocol GameCoordinatorDelegate: AnyObject {
-    
+    func exitApp()
 }
 
 // MARK: - GameCoordinator
@@ -21,7 +21,7 @@ class GameCoordinator: NavigationCoordinator {
     
     let navigationController: UINavigationController
     
-    weak var parentingCoordinator: GameCoordinatorDelegate?
+    var parentingCoordinator: GameCoordinatorDelegate?
     
     // MARK: - Lifecycle
     
@@ -29,6 +29,10 @@ class GameCoordinator: NavigationCoordinator {
         navigationController: UINavigationController
     ) {
         self.navigationController = navigationController
+    }
+    
+    deinit {
+        print(".... GameCoordinator deinitialized")
     }
     
     // MARK: - Navigation Methods
@@ -43,5 +47,7 @@ class GameCoordinator: NavigationCoordinator {
 // MARK: - GameViewControllerDelegate
 
 extension GameCoordinator: GameViewControllerDelegate {
-    
+    func exitApp() {
+        parentingCoordinator?.exitApp()
+    }
 }

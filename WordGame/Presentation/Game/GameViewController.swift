@@ -9,7 +9,9 @@ import UIKit
 
 // MARK: - GameViewControllerDelegate
 
-protocol GameViewControllerDelegate: AnyObject {}
+protocol GameViewControllerDelegate: AnyObject {
+    func exitApp()
+}
 
 // MARK: - GameViewController
 
@@ -21,13 +23,12 @@ class GameViewController: UIViewController {
     
     let gameViewModel: GameViewModel
 
-    weak var parentingCoordinator: GameViewControllerDelegate?
+    var parentingCoordinator: GameViewControllerDelegate?
     
     // MARK: - UI Components
     
     let correctAttemptsLabel: UILabel = {
         let label = UILabel()
-        label.text = LocalizationKey.gameScreenCorrectAttemptsCounter(attempts: 0).string
         label.font = .systemFont(ofSize: 14)
         label.textColor = .black
         return label
@@ -35,7 +36,6 @@ class GameViewController: UIViewController {
     
     let wrongAttemptsLabel: UILabel = {
         let label = UILabel()
-        label.text = LocalizationKey.gameScreenWrongAttemptsCounter(attempts: 0).string
         label.font = .systemFont(ofSize: 14)
         label.textColor = .black
         return label
@@ -96,10 +96,12 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureViewController()
-        
-        // Start game
-        getRandomWordPair()
-        initializeAndStartRoundTimer()
+
+        startGame()
+    }
+    
+    deinit {
+        print(".... GameViewController deinitialized")
     }
     
     // MARK: - UI Helpers
@@ -150,6 +152,14 @@ class GameViewController: UIViewController {
     
     // MARK: - Methods
     
+    func startGame() {
+        correctAttemptsLabel.text = LocalizationKey.gameScreenCorrectAttemptsCounter(attempts: 0).string
+        wrongAttemptsLabel.text = LocalizationKey.gameScreenWrongAttemptsCounter(attempts: 0).string
+        
+        getRandomWordPair()
+        initializeAndStartRoundTimer()
+    }
+    
     func getRandomWordPair() {
         switch gameViewModel.getRandomWordPair() {
         case let .success(wordPair):
@@ -184,8 +194,8 @@ class GameViewController: UIViewController {
              
              Update incorrect attempts, and check and load next question.
              */
-            self?.gameViewModel.inCorrectAttempts += 1
-            guard let inCorrectAttempts = self?.gameViewModel.inCorrectAttempts else {
+            self?.gameViewModel.gameState.inCorrectAttempts += 1
+            guard let inCorrectAttempts = self?.gameViewModel.gameState.inCorrectAttempts else {
                 fatalError("Unexpectedly got error while handling timer fire")
             }
             self?.wrongAttemptsLabel.text = LocalizationKey.gameScreenWrongAttemptsCounter(
@@ -198,7 +208,9 @@ class GameViewController: UIViewController {
     func checkAndLoadNextQuestion() {
         // Check if game should end
         if gameViewModel.checkIfGameShouldEnd() {
-            exit(-1)
+            gameViewModel.roundTimer?.stop()
+            presentGameOverModal()
+            return
         }
         
         // Go to next word pair
@@ -206,5 +218,40 @@ class GameViewController: UIViewController {
         
         // Reset and start question timer
         gameViewModel.resetRoundTimer()
+    }
+    
+    func presentGameOverModal() {
+        let alert = UIAlertController(
+            title: LocalizationKey.gameOverModalTitle.string,
+            message: LocalizationKey.gameOverModalMessage.string,
+            preferredStyle: .alert
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: LocalizationKey.gameOverModalAcceptActionLabel.string,
+                style: .default,
+                handler: { [weak self] _ in
+                    // Reset game state
+                    self?.gameViewModel.gameState = GameState(
+                        correctAttempts: 0,
+                        inCorrectAttempts: 0,
+                        currentWordPair: nil,
+                        wordPairsSeen: 0
+                    )
+                    self?.startGame()
+                }))
+        alert.addAction(
+            UIAlertAction(
+                title: LocalizationKey.gameOverModalRejectActionLabel.string,
+                style: .default,
+                handler: { [weak self] _ in
+                    // Exit the app
+                    guard let self = self else { return }
+                    guard let parentingCoordinator = self.parentingCoordinator else {
+                        return
+                    }
+                    parentingCoordinator.exitApp()
+                }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
