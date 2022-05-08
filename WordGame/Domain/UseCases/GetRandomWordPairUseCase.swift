@@ -25,7 +25,7 @@ class GetRandomWordPairUseCase {
 }
 
 extension GetRandomWordPairUseCase {
-    func execute() -> Result<WordPair, Error> {
+    func execute() -> Result<WordPair, BusinessError> {
         /**
          Load all words from file and set correct and wrong translations
          */
@@ -63,19 +63,24 @@ extension GetRandomWordPairUseCase {
                 words = allWords
             }
         }
-        guard var words = words else {
-            return .failure(NSError(domain: "Not Found", code: 404, userInfo: nil))
+        guard var storedWords = words, !storedWords.isEmpty else {
+            return .failure(BusinessErrors.emptyWordList())
+        }
+        if storedWords.count == 1, let wordPair = storedWords.first {
+            storedWords.removeLast()
+            return .success(wordPair)
         }
         
         // Random key from array
-        let arrayKey = Int(arc4random_uniform(UInt32(words.count)))
+        let arrayKey = Int(arc4random_uniform(UInt32(storedWords.count)))
 
         // Random word pair
-        let randomWordPair = words[arrayKey]
+        let randomWordPair = storedWords[arrayKey]
 
         // Make sure the word pair is not repeated
-        words.swapAt(arrayKey, words.count-1)
-        words.removeLast()
+        storedWords.swapAt(arrayKey, storedWords.count-1)
+        storedWords.removeLast()
+        words = storedWords
         
         return .success(randomWordPair)
     }

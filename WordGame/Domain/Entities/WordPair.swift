@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct WordPair {
+struct WordPair: Equatable {
     let textEnglish: String
     let textSpanish: String
     var isCorrectTranslation: Bool = true

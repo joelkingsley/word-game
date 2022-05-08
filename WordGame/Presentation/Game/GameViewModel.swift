@@ -38,9 +38,9 @@ class GameViewModel {
     }
     
     /// Validates user response and returns updated tuple of correct and incorrect attempts
-    func validateUserResponse(isCorrect: Bool) -> Result<(Int, Int), Error> {
+    func validateUserResponse(isCorrect: Bool) -> Result<(Int, Int), BusinessError> {
         guard let currentWordPair = gameState.currentWordPair else {
-            return .failure(NSError(domain: "Not Found", code: 404, userInfo: nil))
+            return .failure(BusinessErrors.clientError())
         }
 
         if currentWordPair.isCorrectTranslation == isCorrect {
