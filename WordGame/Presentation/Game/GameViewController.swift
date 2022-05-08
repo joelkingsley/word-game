@@ -43,14 +43,14 @@ class GameViewController: UIViewController {
     
     let spanishTranslationLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18)
-        label.textColor = .black
+        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.textAlignment = .center
         return label
     }()
     
     let englishStringLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: 18)
         label.textColor = .black
         return label
     }()
@@ -80,6 +80,13 @@ class GameViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         return button
     }()
+    
+    let textColors: [UIColor] = [
+        .systemRed,
+        .systemBlue,
+        .systemBrown,
+        .systemGray
+    ]
     
     // MARK: - Lifecycle
     
@@ -125,10 +132,6 @@ class GameViewController: UIViewController {
         englishStringLabel.topAnchor.constraint(equalTo: view.centerYAnchor, constant: 20).isActive = true
         englishStringLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
-        spanishTranslationLabel.translatesAutoresizingMaskIntoConstraints = false
-        spanishTranslationLabel.bottomAnchor.constraint(equalTo: englishStringLabel.topAnchor, constant: -20).isActive = true
-        spanishTranslationLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
         buttonStackView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
@@ -158,6 +161,7 @@ class GameViewController: UIViewController {
         
         getRandomWordPair()
         initializeAndStartRoundTimer()
+        startSpanishTranslationAnimation()
     }
     
     func getRandomWordPair() {
@@ -209,6 +213,7 @@ class GameViewController: UIViewController {
         // Check if game should end
         if gameViewModel.checkIfGameShouldEnd() {
             gameViewModel.roundTimer?.stop()
+            spanishTranslationLabel.layer.removeAllAnimations()
             presentGameOverModal()
             return
         }
@@ -218,6 +223,9 @@ class GameViewController: UIViewController {
         
         // Reset and start question timer
         gameViewModel.resetRoundTimer()
+        
+        // Restart spanish translation animation
+        startSpanishTranslationAnimation()
     }
     
     func presentGameOverModal() {
@@ -253,5 +261,32 @@ class GameViewController: UIViewController {
                     parentingCoordinator.exitApp()
                 }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func startSpanishTranslationAnimation() {
+        spanishTranslationLabel.layer.removeAllAnimations()
+        spanishTranslationLabel.textColor = textColors.randomElement() ?? .systemBrown
+        spanishTranslationLabel.frame = CGRect(
+            x: 0,
+            y: view.frame.minY + 100,
+            width: view.frame.size.width,
+            height: 50
+        )
+        spanishTranslationLabel.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 5.0, delay: 0, options: .curveLinear) { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.spanishTranslationLabel.frame = CGRect(
+                x: 0,
+                y: self.view.frame.maxY - (50+100),
+                width: self.view.frame.size.width,
+                height: 50
+            )
+            self.spanishTranslationLabel.layoutIfNeeded()
+        } completion: { completed in
+            print("Animation completed: \(completed)")
+        }
     }
 }
