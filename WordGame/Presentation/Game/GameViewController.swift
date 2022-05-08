@@ -274,7 +274,7 @@ class GameViewController: UIViewController {
         )
         spanishTranslationLabel.layoutIfNeeded()
         
-        UIView.animate(withDuration: 5.0, delay: 0, options: .curveLinear) { [weak self] in
+        UIView.animate(withDuration: 6.0, delay: 0, options: .curveLinear) { [weak self] in
             guard let self = self else {
                 return
             }
