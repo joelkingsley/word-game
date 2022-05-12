@@ -23,5 +23,9 @@ class AppContainer {
                 gameCoordinatorFactory: gameFactory.getGameCoordinatorFactory()
             )
         })
+        
+        container.register(WordPairRepositoryImpl.self) { res in
+            WordPairRepositoryImpl()
+        }
     }
 }

@@ -13,15 +13,16 @@ import Foundation
 class RoundTimer {
     var timer = Timer()
     
-    private let timePerQuestionInSeconds = 5
+    private let timePerQuestionInSeconds: Int
     
     var remainingTime: Int
     
     let fireHandler: () -> Void
     
-    init(fireHandler: @escaping () -> Void) {
+    init(timerPerQuestionInSeconds: Int = 5, fireHandler: @escaping () -> Void) {
         self.fireHandler = fireHandler
-        self.remainingTime = timePerQuestionInSeconds
+        self.timePerQuestionInSeconds = timerPerQuestionInSeconds
+        self.remainingTime = timerPerQuestionInSeconds
     }
     
     func start() {

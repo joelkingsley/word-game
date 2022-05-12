@@ -13,13 +13,11 @@ import Foundation
 class WordPairRepositoryImpl: WordPairRepository {
     // MARK: - Properties
     
-    static let sharedInstance = WordPairRepositoryImpl()
-    
     private var words: [WordPairDTO]?
     
     // MARK: - Lifecycle
     
-    private init() {
+    init() {
         self.words = loadWordsFromFile()
     }
     

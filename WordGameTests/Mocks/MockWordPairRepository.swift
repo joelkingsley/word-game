@@ -11,8 +11,6 @@ import Foundation
 class MockWorkPairRepository: WordPairRepository {
     // MARK: - Properties
     
-    static let sharedInstance = MockWorkPairRepository()
-    
     private var words: [WordPairDTO]?
     
     // MARK: - Helper Methods
@@ -62,13 +60,4 @@ class MockWorkPairRepository: WordPairRepository {
     func getAllWords() -> [WordPair]? {
         return words?.map({ $0.toEntity() })
     }
-}
-
-// MARK: - WordListScenario
-
-enum WordListScenario {
-    case empty
-    case oneWordPair
-    case twoWordPairs
-    case moreThanTwoWordPairs
 }

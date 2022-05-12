@@ -24,5 +24,17 @@ class GameContainer {
                 gameViewControllerFactory: gameFactory.getGameViewControllerFactory()
             )
         }
+        
+        container.register(GameViewModel.self) { res in
+            GameViewModel(
+                getRandomWordPairUseCase: res.resolve(GetRandomWordPairUseCaseImpl.self)!
+            )
+        }
+        
+        container.register(GetRandomWordPairUseCaseImpl.self) { res in
+            GetRandomWordPairUseCaseImpl(
+                wordPairRepository: res.resolve(WordPairRepositoryImpl.self)!
+            )
+        }
     }
 }

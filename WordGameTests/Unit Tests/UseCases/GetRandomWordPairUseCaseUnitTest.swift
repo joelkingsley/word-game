@@ -15,7 +15,7 @@ class GetRandomWordPairUseCaseUnitTest: XCTestCase {
 
     override func setUp() {
         continueAfterFailure = false
-        mockWordPairRepository = MockWorkPairRepository.sharedInstance
+        mockWordPairRepository = MockWorkPairRepository()
         mockWordPairRepository.setWordList(withWordListScenario: .empty)
     }
 
@@ -24,7 +24,7 @@ class GetRandomWordPairUseCaseUnitTest: XCTestCase {
     }
 
     func testGetRandomWordPairUseCase_forEmptyWordList_returnsError() {
-        let getRandomWordPairUseCase = GetRandomWordPairUseCase(wordPairRepository: mockWordPairRepository)
+        let getRandomWordPairUseCase = GetRandomWordPairUseCaseImpl(wordPairRepository: mockWordPairRepository)
         mockWordPairRepository.setWordList(withWordListScenario: .empty)
         
         let randomWordPair = getRandomWordPairUseCase.execute()
@@ -38,7 +38,7 @@ class GetRandomWordPairUseCaseUnitTest: XCTestCase {
     }
     
     func testGetRandomWordPairUseCase_forOneWordPair_returnsSameCorrectWordPairAlways() {
-        let getRandomWordPairUseCase = GetRandomWordPairUseCase(wordPairRepository: mockWordPairRepository)
+        let getRandomWordPairUseCase = GetRandomWordPairUseCaseImpl(wordPairRepository: mockWordPairRepository)
         mockWordPairRepository.setWordList(withWordListScenario: .oneWordPair)
         
         let randomWordPair = getRandomWordPairUseCase.execute()
@@ -59,7 +59,7 @@ class GetRandomWordPairUseCaseUnitTest: XCTestCase {
     }
     
     func testGetRandomWordPairUseCase_forTwoWordPairs_returnsAtleastOneIncorrectWordPairForTwoRounds() {
-        let getRandomWordPairUseCase = GetRandomWordPairUseCase(wordPairRepository: mockWordPairRepository)
+        let getRandomWordPairUseCase = GetRandomWordPairUseCaseImpl(wordPairRepository: mockWordPairRepository)
         mockWordPairRepository.setWordList(withWordListScenario: .twoWordPairs)
         
         let randomWordPair1 = getRandomWordPairUseCase.execute()
@@ -82,7 +82,7 @@ class GetRandomWordPairUseCaseUnitTest: XCTestCase {
     }
     
     func testGetRandomWordPairUseCase_forMoreThanTwoWordPairs_returnsValidWordPairsAtleastThreeTimes() {
-        let getRandomWordPairUseCase = GetRandomWordPairUseCase(wordPairRepository: mockWordPairRepository)
+        let getRandomWordPairUseCase = GetRandomWordPairUseCaseImpl(wordPairRepository: mockWordPairRepository)
         mockWordPairRepository.setWordList(withWordListScenario: .moreThanTwoWordPairs)
         
         let randomWordPair1 = getRandomWordPairUseCase.execute()

@@ -16,8 +16,10 @@
 		F11406AA28281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406A928281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift */; };
 		F11406AE28281AB500ED2260 /* MockWordPairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406AD28281AB500ED2260 /* MockWordPairRepository.swift */; };
 		F11406B02828238400ED2260 /* BusinessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406AF2828238400ED2260 /* BusinessError.swift */; };
-		F11406B328282B9000ED2260 /* GameViewModelIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406B228282B9000ED2260 /* GameViewModelIntegrationTest.swift */; };
 		F1656BA1282B028C005F62BB /* GameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BA0282B028C005F62BB /* GameFactory.swift */; };
+		F1656BA6282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BA5282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift */; };
+		F1656BA9282CBF47005F62BB /* WordListScenario.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BA8282CBF47005F62BB /* WordListScenario.swift */; };
+		F1656BAB282CC04D005F62BB /* GameViewModelUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BAA282CC04D005F62BB /* GameViewModelUnitTest.swift */; };
 		F1F05BF82823865000FDF704 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05BF72823865000FDF704 /* AppDelegate.swift */; };
 		F1F05BFA2823865000FDF704 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05BF92823865000FDF704 /* SceneDelegate.swift */; };
 		F1F05C012823865200FDF704 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1F05C002823865200FDF704 /* Assets.xcassets */; };
@@ -75,8 +77,10 @@
 		F11406A928281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRandomWordPairUseCaseUnitTest.swift; sourceTree = "<group>"; };
 		F11406AD28281AB500ED2260 /* MockWordPairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWordPairRepository.swift; sourceTree = "<group>"; };
 		F11406AF2828238400ED2260 /* BusinessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessError.swift; sourceTree = "<group>"; };
-		F11406B228282B9000ED2260 /* GameViewModelIntegrationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelIntegrationTest.swift; sourceTree = "<group>"; };
 		F1656BA0282B028C005F62BB /* GameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFactory.swift; sourceTree = "<group>"; };
+		F1656BA5282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGetRandomWordPairUseCase.swift; sourceTree = "<group>"; };
+		F1656BA8282CBF47005F62BB /* WordListScenario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListScenario.swift; sourceTree = "<group>"; };
+		F1656BAA282CC04D005F62BB /* GameViewModelUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelUnitTest.swift; sourceTree = "<group>"; };
 		F1F05BF42823865000FDF704 /* WordGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F05BF72823865000FDF704 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1F05BF92823865000FDF704 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,14 +162,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		F113F4F6282AC00C006C223B /* Integration Tests */ = {
-			isa = PBXGroup;
-			children = (
-				F11406B128282B4700ED2260 /* ViewModels */,
-			);
-			path = "Integration Tests";
-			sourceTree = "<group>";
-		};
 		F113F4F7282AC01C006C223B /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				F11406A928281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift */,
+				F1656BAA282CC04D005F62BB /* GameViewModelUnitTest.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -186,16 +183,9 @@
 			isa = PBXGroup;
 			children = (
 				F11406AD28281AB500ED2260 /* MockWordPairRepository.swift */,
+				F1656BA5282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift */,
 			);
 			path = Mocks;
-			sourceTree = "<group>";
-		};
-		F11406B128282B4700ED2260 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				F11406B228282B9000ED2260 /* GameViewModelIntegrationTest.swift */,
-			);
-			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		F1656B9D282B0278005F62BB /* DI */ = {
@@ -213,6 +203,14 @@
 				F1656BA0282B028C005F62BB /* GameFactory.swift */,
 			);
 			path = DI;
+			sourceTree = "<group>";
+		};
+		F1656BA7282CBF3B005F62BB /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				F1656BA8282CBF47005F62BB /* WordListScenario.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		F1F05BEB2823865000FDF704 = {
@@ -255,9 +253,9 @@
 		F1F05C0D2823865200FDF704 /* WordGameTests */ = {
 			isa = PBXGroup;
 			children = (
+				F1656BA7282CBF3B005F62BB /* Entities */,
 				F11406AC28281AA100ED2260 /* Mocks */,
 				F113F4F7282AC01C006C223B /* Unit Tests */,
-				F113F4F6282AC00C006C223B /* Integration Tests */,
 			);
 			path = WordGameTests;
 			sourceTree = "<group>";
@@ -676,9 +674,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F11406B328282B9000ED2260 /* GameViewModelIntegrationTest.swift in Sources */,
+				F1656BA6282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift in Sources */,
 				F11406AA28281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift in Sources */,
 				F11406AE28281AB500ED2260 /* MockWordPairRepository.swift in Sources */,
+				F1656BA9282CBF47005F62BB /* WordListScenario.swift in Sources */,
+				F1656BAB282CC04D005F62BB /* GameViewModelUnitTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

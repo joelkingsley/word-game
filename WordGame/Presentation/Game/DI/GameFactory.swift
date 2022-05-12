@@ -25,7 +25,9 @@ class GameFactory {
     
     func getGameViewControllerFactory() -> GameViewControllerFactory {
         return {
-            let gameViewController = GameViewController(gameViewModel: GameViewModel())
+            let gameViewController = GameViewController(
+                gameViewModel: self.gameContainer.resolve(GameViewModel.self)!
+            )
             return gameViewController
         }
     }

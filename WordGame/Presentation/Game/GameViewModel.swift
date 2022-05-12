@@ -14,7 +14,7 @@ import Combine
 class GameViewModel {
     // MARK: - Use Cases
     
-    let getRandomWordPairUseCase = GetRandomWordPairUseCase(wordPairRepository: WordPairRepositoryImpl.sharedInstance)
+    let getRandomWordPairUseCase: GetRandomWordPairUseCase
     
     // MARK: - Properties
     
@@ -36,6 +36,14 @@ class GameViewModel {
     var endAnimationSubject = PassthroughSubject<Void, Never>()
     
     var presentGameOverModalSubject = PassthroughSubject<Void, Never>()
+    
+    // MARK: - Lifecycle
+    
+    init(
+        getRandomWordPairUseCase: GetRandomWordPairUseCase
+    ) {
+        self.getRandomWordPairUseCase = getRandomWordPairUseCase
+    }
     
     // MARK: - Methods
     
@@ -76,8 +84,8 @@ class GameViewModel {
     }
     
     /// Initializes and starts the question timer
-    func initializeAndStartRoundTimer() {
-        roundTimer = RoundTimer(fireHandler: { [weak self] in
+    func initializeAndStartRoundTimer(timePerRoundInSeconds: Int? = nil) {
+        let fireHandler = { [weak self] in
             /*
              NOTE: If closure gets fired, it means that 5 seconds has passed, and the attempt is considered as incorrect.
              
@@ -85,7 +93,12 @@ class GameViewModel {
              */
             self?.gameState.value.incorrectAttempts += 1
             self?.checkAndLoadNextRound()
-        })
+        }
+        if let timePerRoundInSeconds = timePerRoundInSeconds {
+            roundTimer = RoundTimer(timerPerQuestionInSeconds: timePerRoundInSeconds, fireHandler: fireHandler)
+        } else {
+            roundTimer = RoundTimer(fireHandler: fireHandler)
+        }
         roundTimer?.start()
     }
     

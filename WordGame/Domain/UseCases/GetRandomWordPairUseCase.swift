@@ -10,7 +10,17 @@ import Foundation
 /**
  Use Case to get a random word pair with a 25% probability of it being correct
  */
-class GetRandomWordPairUseCase {
+protocol GetRandomWordPairUseCase {
+    var wordPairRepository: WordPairRepository { get }
+    
+    var words: [WordPair]? { get set }
+    
+    var probabilityOfWrongWordPair: Double { get }
+    
+    func execute() -> Result<WordPair, BusinessError>
+}
+
+class GetRandomWordPairUseCaseImpl: GetRandomWordPairUseCase {
     let wordPairRepository: WordPairRepository
     
     var words: [WordPair]?
@@ -22,9 +32,7 @@ class GetRandomWordPairUseCase {
     ) {
         self.wordPairRepository = wordPairRepository
     }
-}
-
-extension GetRandomWordPairUseCase {
+    
     func execute() -> Result<WordPair, BusinessError> {
         /**
          Load all words from file and set correct and wrong translations
