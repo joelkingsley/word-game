@@ -27,10 +27,6 @@ class AppCoordinator: NavigationCoordinator {
         self.gameCoordinatorFactory = gameCoordinatorFactory
     }
     
-    deinit {
-        print(".... AppCoordinator deinitialized")
-    }
-    
     // MARK: - Navigation Methods
     
     func start() {

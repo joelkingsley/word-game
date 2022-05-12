@@ -32,11 +32,7 @@ class GameCoordinator: NavigationCoordinator {
     ) {
         self.gameViewControllerFactory = gameViewControllerFactory
     }
-    
-    deinit {
-        print(".... GameCoordinator deinitialized")
-    }
-    
+
     // MARK: - Navigation Methods
     
     func start() {
