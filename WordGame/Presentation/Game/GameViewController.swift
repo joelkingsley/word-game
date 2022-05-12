@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 // MARK: - GameViewControllerDelegate
 
@@ -24,6 +25,8 @@ class GameViewController: UIViewController {
     let gameViewModel: GameViewModel
 
     var parentingCoordinator: GameViewControllerDelegate?
+    
+    var cancellables = Set<AnyCancellable>()
     
     // MARK: - UI Components
     
@@ -103,12 +106,18 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         configureViewController()
-
+        bindViewModel()
         startGame()
     }
     
     deinit {
         print(".... GameViewController deinitialized")
+    }
+    
+    func startGame() {
+        gameViewModel.setNextRandomWordPair()
+        gameViewModel.initializeAndStartRoundTimer()
+        gameViewModel.restartAnimationSubject.send()
     }
     
     // MARK: - UI Helpers
@@ -143,127 +152,30 @@ class GameViewController: UIViewController {
         wrongButton.addTarget(self, action: #selector(handleWrong), for: .touchUpInside)
     }
     
-    // MARK: - Actions
-    
-    @objc func handleCorrect() {
-        validateUserResponse(isCorrect: true)
-    }
-    
-    @objc func handleWrong() {
-        validateUserResponse(isCorrect: false)
-    }
-    
-    // MARK: - Methods
-    
-    func startGame() {
-        correctAttemptsLabel.text = LocalizationKey.gameScreenCorrectAttemptsCounter(attempts: 0).string
-        wrongAttemptsLabel.text = LocalizationKey.gameScreenWrongAttemptsCounter(attempts: 0).string
-        
-        getRandomWordPair()
-        initializeAndStartRoundTimer()
-        startSpanishTranslationAnimation()
-    }
-    
-    func getRandomWordPair() {
-        switch gameViewModel.getRandomWordPair() {
-        case let .success(wordPair):
-            self.englishStringLabel.text = wordPair.textEnglish
-            self.spanishTranslationLabel.text = wordPair.textSpanish
-        case let .failure(error):
-            fatalError("Unexpectedly got error while getting random word pair: \(error)")
-        }
-    }
-    
-    func validateUserResponse(isCorrect: Bool) {
-        switch gameViewModel.validateUserResponse(isCorrect: isCorrect) {
-        case let .success((correctAttempts, inCorrectAttempts)):
-            /*
-             Update correct attempts and incorrect attempts after validating user response.
-             
-             Then check and load next question.
-             */
-            correctAttemptsLabel.text = LocalizationKey.gameScreenCorrectAttemptsCounter(attempts: correctAttempts).string
-            wrongAttemptsLabel.text = LocalizationKey.gameScreenWrongAttemptsCounter(attempts: inCorrectAttempts).string
-            
-            checkAndLoadNextQuestion()
-        case let .failure(error):
-            fatalError("Unexpectedly got error while validating user response: \(error)")
-        }
-    }
-    
-    func initializeAndStartRoundTimer() {
-        gameViewModel.initializeAndStartRoundTimer { [weak self] in
-            /*
-             NOTE: If timer gets fired, it means that 5 seconds has passes, and the attempt is considered as incorrect.
-             
-             Update incorrect attempts, and check and load next question.
-             */
-            self?.gameViewModel.gameState.inCorrectAttempts += 1
-            guard let inCorrectAttempts = self?.gameViewModel.gameState.inCorrectAttempts else {
-                fatalError("Unexpectedly got error while handling timer fire")
-            }
+    func bindViewModel() {
+        gameViewModel.gameState.sink { [weak self] gameState in
+            self?.englishStringLabel.text = gameState.currentWordPair?.textEnglish
+            self?.spanishTranslationLabel.text = gameState.currentWordPair?.textSpanish
+            self?.correctAttemptsLabel.text = LocalizationKey.gameScreenCorrectAttemptsCounter(
+                attempts: gameState.correctAttempts).string
             self?.wrongAttemptsLabel.text = LocalizationKey.gameScreenWrongAttemptsCounter(
-                attempts: inCorrectAttempts).string
-            
-            self?.checkAndLoadNextQuestion()
-        }
+                attempts: gameState.incorrectAttempts).string
+        }.store(in: &cancellables)
+        
+        gameViewModel.restartAnimationSubject.sink { [weak self] _ in
+            self?.restartAnimation()
+        }.store(in: &cancellables)
+        
+        gameViewModel.endAnimationSubject.sink { [weak self] _ in
+            self?.spanishTranslationLabel.layer.removeAllAnimations()
+        }.store(in: &cancellables)
+        
+        gameViewModel.presentGameOverModalSubject.sink { [weak self] _ in
+            self?.presentGameOverModal()
+        }.store(in: &cancellables)
     }
     
-    func checkAndLoadNextQuestion() {
-        // Check if game should end
-        if gameViewModel.checkIfGameShouldEnd() {
-            gameViewModel.roundTimer?.stop()
-            spanishTranslationLabel.layer.removeAllAnimations()
-            presentGameOverModal()
-            return
-        }
-        
-        // Go to next word pair
-        getRandomWordPair()
-        
-        // Reset and start question timer
-        gameViewModel.resetRoundTimer()
-        
-        // Restart spanish translation animation
-        startSpanishTranslationAnimation()
-    }
-    
-    func presentGameOverModal() {
-        let alert = UIAlertController(
-            title: LocalizationKey.gameOverModalTitle.string,
-            message: LocalizationKey.gameOverModalMessage.string,
-            preferredStyle: .alert
-        )
-        alert.addAction(
-            UIAlertAction(
-                title: LocalizationKey.gameOverModalAcceptActionLabel.string,
-                style: .default,
-                handler: { [weak self] _ in
-                    // Reset game state
-                    self?.gameViewModel.gameState = GameState(
-                        correctAttempts: 0,
-                        inCorrectAttempts: 0,
-                        currentWordPair: nil,
-                        wordPairsSeen: 0
-                    )
-                    self?.startGame()
-                }))
-        alert.addAction(
-            UIAlertAction(
-                title: LocalizationKey.gameOverModalRejectActionLabel.string,
-                style: .default,
-                handler: { [weak self] _ in
-                    // Exit the app
-                    guard let self = self else { return }
-                    guard let parentingCoordinator = self.parentingCoordinator else {
-                        return
-                    }
-                    parentingCoordinator.exitApp()
-                }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func startSpanishTranslationAnimation() {
+    func restartAnimation() {
         spanishTranslationLabel.layer.removeAllAnimations()
         spanishTranslationLabel.textColor = textColors.randomElement() ?? .systemBrown
         spanishTranslationLabel.frame = CGRect(
@@ -285,8 +197,44 @@ class GameViewController: UIViewController {
                 height: 50
             )
             self.spanishTranslationLabel.layoutIfNeeded()
-        } completion: { completed in
-            print("Animation completed: \(completed)")
         }
+    }
+    
+    func presentGameOverModal() {
+        let alert = UIAlertController(
+            title: LocalizationKey.gameOverModalTitle.string,
+            message: LocalizationKey.gameOverModalMessage.string,
+            preferredStyle: .alert
+        )
+        alert.addAction(
+            UIAlertAction(
+                title: LocalizationKey.gameOverModalAcceptActionLabel.string,
+                style: .default,
+                handler: { [weak self] _ in
+                    // Reset game state and restart game
+                    self?.gameViewModel.gameState.value = GameState()
+                    self?.startGame()
+                }))
+        alert.addAction(
+            UIAlertAction(
+                title: LocalizationKey.gameOverModalRejectActionLabel.string,
+                style: .default,
+                handler: { [weak self] _ in
+                    // Exit the app
+                    self?.parentingCoordinator?.exitApp()
+                }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Actions
+    
+    @objc func handleCorrect() {
+        gameViewModel.validateUserResponse(isCorrect: true)
+        gameViewModel.checkAndLoadNextRound()
+    }
+    
+    @objc func handleWrong() {
+        gameViewModel.validateUserResponse(isCorrect: false)
+        gameViewModel.checkAndLoadNextRound()
     }
 }

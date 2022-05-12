@@ -19,16 +19,18 @@ protocol GameCoordinatorDelegate: AnyObject {
 class GameCoordinator: NavigationCoordinator {
     // MARK: - Properties
     
-    let navigationController: UINavigationController
+    var navigationController: UINavigationController!
+    
+    let gameViewControllerFactory: GameViewControllerFactory
     
     var parentingCoordinator: GameCoordinatorDelegate?
     
     // MARK: - Lifecycle
     
     init(
-        navigationController: UINavigationController
+        gameViewControllerFactory: @escaping GameViewControllerFactory
     ) {
-        self.navigationController = navigationController
+        self.gameViewControllerFactory = gameViewControllerFactory
     }
     
     deinit {
@@ -38,7 +40,7 @@ class GameCoordinator: NavigationCoordinator {
     // MARK: - Navigation Methods
     
     func start() {
-        let gameViewController = GameViewController(gameViewModel: GameViewModel())
+        let gameViewController = gameViewControllerFactory()
         gameViewController.parentingCoordinator = self
         navigationController.pushViewController(gameViewController, animated: true)
     }

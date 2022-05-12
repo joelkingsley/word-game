@@ -9,12 +9,15 @@
 /* Begin PBXBuildFile section */
 		17F37677BB1D59293547FBE5 /* Pods_WordGame_WordGameUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666791B123BEBD008B1247B2 /* Pods_WordGame_WordGameUITests.framework */; };
 		6FB9DB6DC2BE65C7ADA21744 /* Pods_WordGame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F69796120547227361E816EB /* Pods_WordGame.framework */; };
+		F113F4FC282AF4B8006C223B /* AppContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F113F4FB282AF4B8006C223B /* AppContainer.swift */; };
+		F113F4FE282AF541006C223B /* GameContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F113F4FD282AF541006C223B /* GameContainer.swift */; };
 		F11406A328250DA900ED2260 /* RoundTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406A228250DA900ED2260 /* RoundTimer.swift */; };
 		F11406A8282595BE00ED2260 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406A7282595BE00ED2260 /* GameState.swift */; };
 		F11406AA28281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406A928281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift */; };
 		F11406AE28281AB500ED2260 /* MockWordPairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406AD28281AB500ED2260 /* MockWordPairRepository.swift */; };
 		F11406B02828238400ED2260 /* BusinessError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406AF2828238400ED2260 /* BusinessError.swift */; };
 		F11406B328282B9000ED2260 /* GameViewModelIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11406B228282B9000ED2260 /* GameViewModelIntegrationTest.swift */; };
+		F1656BA1282B028C005F62BB /* GameFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BA0282B028C005F62BB /* GameFactory.swift */; };
 		F1F05BF82823865000FDF704 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05BF72823865000FDF704 /* AppDelegate.swift */; };
 		F1F05BFA2823865000FDF704 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05BF92823865000FDF704 /* SceneDelegate.swift */; };
 		F1F05C012823865200FDF704 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1F05C002823865200FDF704 /* Assets.xcassets */; };
@@ -35,7 +38,7 @@
 		F1F05C492823B62500FDF704 /* WordPairRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05C482823B62500FDF704 /* WordPairRepository.swift */; };
 		F1F05C4F28244FB000FDF704 /* WordPairDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05C4E28244FB000FDF704 /* WordPairDTO.swift */; };
 		F1F05C532824CFDF00FDF704 /* GetRandomWordPairUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05C522824CFDF00FDF704 /* GetRandomWordPairUseCase.swift */; };
-		FC9E352077013E36B52F1718 /* Pods_WordGameTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A6064416648FB30ADAF96F5 /* Pods_WordGameTests.framework */; };
+		F32939462BDC03870B7A2867 /* Pods_WordGameTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60EBA0ADEFDBA54E246D9F16 /* Pods_WordGameTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,19 +59,24 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A6064416648FB30ADAF96F5 /* Pods_WordGameTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordGameTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F99BC531E126C470096210A /* Pods-WordGame-WordGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordGame-WordGameTests.release.xcconfig"; path = "Target Support Files/Pods-WordGame-WordGameTests/Pods-WordGame-WordGameTests.release.xcconfig"; sourceTree = "<group>"; };
 		5B74775F2C62615870CEB842 /* Pods-WordGame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordGame.debug.xcconfig"; path = "Target Support Files/Pods-WordGame/Pods-WordGame.debug.xcconfig"; sourceTree = "<group>"; };
+		60EBA0ADEFDBA54E246D9F16 /* Pods_WordGameTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordGameTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		666791B123BEBD008B1247B2 /* Pods_WordGame_WordGameUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WordGame_WordGameUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B3D7C41DD9BE4B00B9322BD /* Pods-WordGame-WordGameUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordGame-WordGameUITests.debug.xcconfig"; path = "Target Support Files/Pods-WordGame-WordGameUITests/Pods-WordGame-WordGameUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9D2A17168BB009F72B4C30D4 /* Pods-WordGame-WordGameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordGame-WordGameTests.debug.xcconfig"; path = "Target Support Files/Pods-WordGame-WordGameTests/Pods-WordGame-WordGameTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A3D8807A7EB16324AD4EA630 /* Pods-WordGame-WordGameUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordGame-WordGameUITests.release.xcconfig"; path = "Target Support Files/Pods-WordGame-WordGameUITests/Pods-WordGame-WordGameUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B13B7169A3D100983D8C5E8E /* Pods-WordGameTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordGameTests.debug.xcconfig"; path = "Target Support Files/Pods-WordGameTests/Pods-WordGameTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B6C04241833EC900DF55DF7F /* Pods-WordGameTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WordGameTests.release.xcconfig"; path = "Target Support Files/Pods-WordGameTests/Pods-WordGameTests.release.xcconfig"; sourceTree = "<group>"; };
+		F113F4FB282AF4B8006C223B /* AppContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContainer.swift; sourceTree = "<group>"; };
+		F113F4FD282AF541006C223B /* GameContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameContainer.swift; sourceTree = "<group>"; };
 		F11406A228250DA900ED2260 /* RoundTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundTimer.swift; sourceTree = "<group>"; };
 		F11406A7282595BE00ED2260 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		F11406A928281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRandomWordPairUseCaseUnitTest.swift; sourceTree = "<group>"; };
 		F11406AD28281AB500ED2260 /* MockWordPairRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWordPairRepository.swift; sourceTree = "<group>"; };
 		F11406AF2828238400ED2260 /* BusinessError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessError.swift; sourceTree = "<group>"; };
 		F11406B228282B9000ED2260 /* GameViewModelIntegrationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelIntegrationTest.swift; sourceTree = "<group>"; };
+		F1656BA0282B028C005F62BB /* GameFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFactory.swift; sourceTree = "<group>"; };
 		F1F05BF42823865000FDF704 /* WordGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F05BF72823865000FDF704 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1F05BF92823865000FDF704 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC9E352077013E36B52F1718 /* Pods_WordGameTests.framework in Frameworks */,
+				F32939462BDC03870B7A2867 /* Pods_WordGameTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,7 +138,7 @@
 			children = (
 				F69796120547227361E816EB /* Pods_WordGame.framework */,
 				666791B123BEBD008B1247B2 /* Pods_WordGame_WordGameUITests.framework */,
-				1A6064416648FB30ADAF96F5 /* Pods_WordGameTests.framework */,
+				60EBA0ADEFDBA54E246D9F16 /* Pods_WordGameTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -144,8 +152,26 @@
 				A3D8807A7EB16324AD4EA630 /* Pods-WordGame-WordGameUITests.release.xcconfig */,
 				B13B7169A3D100983D8C5E8E /* Pods-WordGameTests.debug.xcconfig */,
 				B6C04241833EC900DF55DF7F /* Pods-WordGameTests.release.xcconfig */,
+				9D2A17168BB009F72B4C30D4 /* Pods-WordGame-WordGameTests.debug.xcconfig */,
+				4F99BC531E126C470096210A /* Pods-WordGame-WordGameTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F113F4F6282AC00C006C223B /* Integration Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F11406B128282B4700ED2260 /* ViewModels */,
+			);
+			path = "Integration Tests";
+			sourceTree = "<group>";
+		};
+		F113F4F7282AC01C006C223B /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				F11406AB28281A9200ED2260 /* UseCases */,
+			);
+			path = "Unit Tests";
 			sourceTree = "<group>";
 		};
 		F11406AB28281A9200ED2260 /* UseCases */ = {
@@ -170,6 +196,23 @@
 				F11406B228282B9000ED2260 /* GameViewModelIntegrationTest.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F1656B9D282B0278005F62BB /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				F113F4FB282AF4B8006C223B /* AppContainer.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		F1656BA2282B028F005F62BB /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				F113F4FD282AF541006C223B /* GameContainer.swift */,
+				F1656BA0282B028C005F62BB /* GameFactory.swift */,
+			);
+			path = DI;
 			sourceTree = "<group>";
 		};
 		F1F05BEB2823865000FDF704 = {
@@ -213,8 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				F11406AC28281AA100ED2260 /* Mocks */,
-				F11406B128282B4700ED2260 /* ViewModels */,
-				F11406AB28281A9200ED2260 /* UseCases */,
+				F113F4F7282AC01C006C223B /* Unit Tests */,
+				F113F4F6282AC00C006C223B /* Integration Tests */,
 			);
 			path = WordGameTests;
 			sourceTree = "<group>";
@@ -240,6 +283,7 @@
 		F1F05C2828238B7900FDF704 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				F1656B9D282B0278005F62BB /* DI */,
 				F1F05C2928238B9A00FDF704 /* Coordinator.swift */,
 				F1F05C2B28238BF400FDF704 /* AppCoordinator.swift */,
 				F1F05BF72823865000FDF704 /* AppDelegate.swift */,
@@ -251,6 +295,7 @@
 		F1F05C2D28238C8800FDF704 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				F1656BA2282B028F005F62BB /* DI */,
 				F1F05C2E28238C9800FDF704 /* GameCoordinator.swift */,
 				F1F05C3028238F6A00FDF704 /* GameViewController.swift */,
 				F1F05C3A2823AFC300FDF704 /* GameViewModel.swift */,
@@ -357,6 +402,7 @@
 				F1F05BF02823865000FDF704 /* Sources */,
 				F1F05BF12823865000FDF704 /* Frameworks */,
 				F1F05BF22823865000FDF704 /* Resources */,
+				EDF73DA787A61A2B1810A168 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -395,6 +441,7 @@
 				F1F05C102823865200FDF704 /* Sources */,
 				F1F05C112823865200FDF704 /* Frameworks */,
 				F1F05C122823865200FDF704 /* Resources */,
+				40FD7637E5C338D284B79D1C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -500,6 +547,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		40FD7637E5C338D284B79D1C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordGame-WordGameUITests/Pods-WordGame-WordGameUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordGame-WordGameUITests/Pods-WordGame-WordGameUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WordGame-WordGameUITests/Pods-WordGame-WordGameUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		5D57E094F3E527E2925EFC35 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -537,6 +601,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WordGameTests/Pods-WordGameTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDF73DA787A61A2B1810A168 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordGame/Pods-WordGame-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WordGame/Pods-WordGame-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WordGame/Pods-WordGame-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5BB1D5B6A16A7655D4912D0 /* [CP] Check Pods Manifest.lock */ = {
@@ -579,9 +660,12 @@
 				F1F05C2C28238BF400FDF704 /* AppCoordinator.swift in Sources */,
 				F1F05C492823B62500FDF704 /* WordPairRepository.swift in Sources */,
 				F1F05C532824CFDF00FDF704 /* GetRandomWordPairUseCase.swift in Sources */,
+				F1656BA1282B028C005F62BB /* GameFactory.swift in Sources */,
+				F113F4FC282AF4B8006C223B /* AppContainer.swift in Sources */,
 				F1F05BF82823865000FDF704 /* AppDelegate.swift in Sources */,
 				F1F05C462823B61000FDF704 /* WordPairRepositoryImpl.swift in Sources */,
 				F1F05BFA2823865000FDF704 /* SceneDelegate.swift in Sources */,
+				F113F4FE282AF541006C223B /* GameContainer.swift in Sources */,
 				F1F05C3728239C3600FDF704 /* Extensions.swift in Sources */,
 				F11406A328250DA900ED2260 /* RoundTimer.swift in Sources */,
 				F11406B02828238400ED2260 /* BusinessError.swift in Sources */,

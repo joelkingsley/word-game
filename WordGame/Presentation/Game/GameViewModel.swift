@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 /**
  View Model for the `GameViewController`
@@ -17,43 +18,74 @@ class GameViewModel {
     
     // MARK: - Properties
     
-    var gameState = GameState(
-        correctAttempts: 0,
-        inCorrectAttempts: 0,
-        currentWordPair: nil,
-        wordPairsSeen: 0
-    )
+    var gameState = CurrentValueSubject<GameState, Never>(GameState())
+    
+    /// Property to determine whether game should end
+    var shouldGameEnd: Bool {
+        return gameState.value.incorrectAttempts >= 3 || gameState.value.wordPairsSeen >= 15
+    }
     
     var roundTimer: RoundTimer?
     
+    var cancellables = Set<AnyCancellable>()
+    
+    // MARK: - Subjects
+    
+    var restartAnimationSubject = PassthroughSubject<Void, Never>()
+    
+    var endAnimationSubject = PassthroughSubject<Void, Never>()
+    
+    var presentGameOverModalSubject = PassthroughSubject<Void, Never>()
+    
     // MARK: - Methods
     
-    /// Gets a random word pair
-    func getRandomWordPair() -> Result<WordPair, Error> {
-        return getRandomWordPairUseCase.execute().map { [weak self] wordPair in
-            self?.gameState.currentWordPair = wordPair
-            self?.gameState.wordPairsSeen += 1
-            return wordPair
+    /// Gets a new random word pair and sets it to `currentWordPair`
+    func setNextRandomWordPair() {
+        let result = getRandomWordPairUseCase.execute()
+        switch result {
+        case let .success(wordPair):
+            gameState.value.currentWordPair = wordPair
+            gameState.value.wordPairsSeen += 1
+        case let .failure(error):
+            fatalError("Unexpectedly got error while getting random word pair: \(error)")
         }
     }
     
-    /// Validates user response and returns updated tuple of correct and incorrect attempts
-    func validateUserResponse(isCorrect: Bool) -> Result<(Int, Int), BusinessError> {
-        guard let currentWordPair = gameState.currentWordPair else {
-            return .failure(BusinessErrors.clientError())
-        }
-
-        if currentWordPair.isCorrectTranslation == isCorrect {
-            gameState.correctAttempts += 1
+    /// Validates user response and updates game state
+    func validateUserResponse(isCorrect: Bool) {
+        if gameState.value.currentWordPair?.isCorrectTranslation == isCorrect {
+            gameState.value.correctAttempts += 1
         } else {
-            gameState.inCorrectAttempts += 1
+            gameState.value.incorrectAttempts += 1
         }
-        return .success((gameState.correctAttempts, gameState.inCorrectAttempts))
+    }
+    
+    /// Checks whether to end game, else loads next round
+    func checkAndLoadNextRound() {
+        if shouldGameEnd {
+            roundTimer?.stop()
+            endAnimationSubject.send()
+            presentGameOverModalSubject.send()
+            print("Game Over")
+        } else {
+            setNextRandomWordPair()
+            resetRoundTimer()
+            restartAnimationSubject.send()
+            print("Loading next round")
+        }
     }
     
     /// Initializes and starts the question timer
-    func initializeAndStartRoundTimer(fireHandler: @escaping () -> Void) {
-        roundTimer = RoundTimer(fireHandler: fireHandler)
+    func initializeAndStartRoundTimer() {
+        roundTimer = RoundTimer(fireHandler: { [weak self] in
+            /*
+             NOTE: If closure gets fired, it means that 5 seconds has passed, and the attempt is considered as incorrect.
+             
+             Update incorrect attempts, and check and load next question.
+             */
+            self?.gameState.value.incorrectAttempts += 1
+            self?.checkAndLoadNextRound()
+        })
         roundTimer?.start()
     }
     
@@ -61,10 +93,5 @@ class GameViewModel {
     func resetRoundTimer() {
         roundTimer?.stop()
         roundTimer?.start()
-    }
-    
-    /// Game logic to check if game should end
-    func checkIfGameShouldEnd() -> Bool {
-        return gameState.inCorrectAttempts >= 3 || gameState.wordPairsSeen >= 15
     }
 }

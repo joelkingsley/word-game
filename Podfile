@@ -6,6 +6,7 @@ target 'WordGame' do
   use_frameworks!
 
   # Pods for WordGame
+  pod 'Swinject'
 
   target 'WordGameTests' do
     inherit! :search_paths

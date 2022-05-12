@@ -13,5 +13,5 @@ protocol Coordinator {
 }
 
 protocol NavigationCoordinator: Coordinator {
-    var navigationController: UINavigationController { get }
+    var navigationController: UINavigationController! { get }
 }

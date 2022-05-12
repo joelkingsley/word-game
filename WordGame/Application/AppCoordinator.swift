@@ -13,16 +13,18 @@ import UIKit
 class AppCoordinator: NavigationCoordinator {
     // MARK: - Properties
     
-    let navigationController: UINavigationController
+    var navigationController: UINavigationController!
+    
+    let gameCoordinatorFactory: GameCoordinatorFactory
     
     var gameCoordinator: GameCoordinator?
     
     // MARK: - Lifecycle
     
     init(
-        navigationController: UINavigationController
+        gameCoordinatorFactory: @escaping GameCoordinatorFactory
     ) {
-        self.navigationController = navigationController
+        self.gameCoordinatorFactory = gameCoordinatorFactory
     }
     
     deinit {
@@ -32,7 +34,8 @@ class AppCoordinator: NavigationCoordinator {
     // MARK: - Navigation Methods
     
     func start() {
-        gameCoordinator = GameCoordinator(navigationController: navigationController)
+        gameCoordinator = gameCoordinatorFactory()
+        gameCoordinator?.navigationController = navigationController
         gameCoordinator?.parentingCoordinator = self
         gameCoordinator?.start()
     }
