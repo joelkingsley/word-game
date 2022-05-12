@@ -20,6 +20,10 @@
 		F1656BA6282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BA5282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift */; };
 		F1656BA9282CBF47005F62BB /* WordListScenario.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BA8282CBF47005F62BB /* WordListScenario.swift */; };
 		F1656BAB282CC04D005F62BB /* GameViewModelUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BAA282CC04D005F62BB /* GameViewModelUnitTest.swift */; };
+		F1656BAF282CDA54005F62BB /* MockUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BAE282CDA53005F62BB /* MockUINavigationController.swift */; };
+		F1656BB1282CDB21005F62BB /* AppCoordinatorUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BB0282CDB21005F62BB /* AppCoordinatorUnitTest.swift */; };
+		F1656BB7282CEEAA005F62BB /* MockGameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BB6282CEEAA005F62BB /* MockGameCoordinator.swift */; };
+		F1656BB9282CF096005F62BB /* GameCoordinatorUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1656BB8282CF096005F62BB /* GameCoordinatorUnitTest.swift */; };
 		F1F05BF82823865000FDF704 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05BF72823865000FDF704 /* AppDelegate.swift */; };
 		F1F05BFA2823865000FDF704 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F05BF92823865000FDF704 /* SceneDelegate.swift */; };
 		F1F05C012823865200FDF704 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1F05C002823865200FDF704 /* Assets.xcassets */; };
@@ -81,6 +85,10 @@
 		F1656BA5282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGetRandomWordPairUseCase.swift; sourceTree = "<group>"; };
 		F1656BA8282CBF47005F62BB /* WordListScenario.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListScenario.swift; sourceTree = "<group>"; };
 		F1656BAA282CC04D005F62BB /* GameViewModelUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelUnitTest.swift; sourceTree = "<group>"; };
+		F1656BAE282CDA53005F62BB /* MockUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUINavigationController.swift; sourceTree = "<group>"; };
+		F1656BB0282CDB21005F62BB /* AppCoordinatorUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppCoordinatorUnitTest.swift; path = "WordGameTests/Unit Tests/Coordinators/AppCoordinatorUnitTest.swift"; sourceTree = SOURCE_ROOT; };
+		F1656BB6282CEEAA005F62BB /* MockGameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameCoordinator.swift; sourceTree = "<group>"; };
+		F1656BB8282CF096005F62BB /* GameCoordinatorUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCoordinatorUnitTest.swift; sourceTree = "<group>"; };
 		F1F05BF42823865000FDF704 /* WordGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1F05BF72823865000FDF704 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1F05BF92823865000FDF704 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -165,6 +173,8 @@
 		F113F4F7282AC01C006C223B /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F1656BB3282CDB2E005F62BB /* Coordinators */,
+				F1656BB2282CDB27005F62BB /* ViewModels */,
 				F11406AB28281A9200ED2260 /* UseCases */,
 			);
 			path = "Unit Tests";
@@ -174,7 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				F11406A928281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift */,
-				F1656BAA282CC04D005F62BB /* GameViewModelUnitTest.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -184,6 +193,8 @@
 			children = (
 				F11406AD28281AB500ED2260 /* MockWordPairRepository.swift */,
 				F1656BA5282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift */,
+				F1656BAE282CDA53005F62BB /* MockUINavigationController.swift */,
+				F1656BB6282CEEAA005F62BB /* MockGameCoordinator.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -211,6 +222,23 @@
 				F1656BA8282CBF47005F62BB /* WordListScenario.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		F1656BB2282CDB27005F62BB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F1656BAA282CC04D005F62BB /* GameViewModelUnitTest.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F1656BB3282CDB2E005F62BB /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				F1656BB0282CDB21005F62BB /* AppCoordinatorUnitTest.swift */,
+				F1656BB8282CF096005F62BB /* GameCoordinatorUnitTest.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		F1F05BEB2823865000FDF704 = {
@@ -674,9 +702,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1656BB9282CF096005F62BB /* GameCoordinatorUnitTest.swift in Sources */,
+				F1656BB7282CEEAA005F62BB /* MockGameCoordinator.swift in Sources */,
 				F1656BA6282CBEED005F62BB /* MockGetRandomWordPairUseCase.swift in Sources */,
+				F1656BAF282CDA54005F62BB /* MockUINavigationController.swift in Sources */,
 				F11406AA28281A2000ED2260 /* GetRandomWordPairUseCaseUnitTest.swift in Sources */,
 				F11406AE28281AB500ED2260 /* MockWordPairRepository.swift in Sources */,
+				F1656BB1282CDB21005F62BB /* AppCoordinatorUnitTest.swift in Sources */,
 				F1656BA9282CBF47005F62BB /* WordListScenario.swift in Sources */,
 				F1656BAB282CC04D005F62BB /* GameViewModelUnitTest.swift in Sources */,
 			);
