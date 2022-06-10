@@ -1,0 +1,20 @@
+PODS:
+  - Nimble (10.0.0)
+  - Swinject (2.8.1)
+
+DEPENDENCIES:
+  - Nimble (~> 10.0.0)
+  - Swinject
+
+SPEC REPOS:
+  trunk:
+    - Nimble
+    - Swinject
+
+SPEC CHECKSUMS:
+  Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
+  Swinject: 97112918bd7e0785dc2df7036213f3c8cbba6586
+
+PODFILE CHECKSUM: 4316f6610ef0181e2f61c73a5067f8056b6f9894
+
+COCOAPODS: 1.11.2

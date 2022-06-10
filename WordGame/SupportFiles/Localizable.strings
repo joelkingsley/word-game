@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  WordGame
+
+  Created by Joel Kingsley on 05/05/2022.
+  
+*/
+
+"gameScreenCorrectButtonLabel" = "Correct";
+"gameScreenWrongButtonLabel" = "Wrong";
+"gameScreenCorrectAttemptsCounter" = "Correct attempts: %d";
+"gameScreenWrongAttemptsCounter" = "Wrong attempts: %d";
+"gameOverModalTitle" = "Game Over";
+"gameOverModalMessage" = "Do you wish to restart the game?";
+"gameOverModalAcceptActionLabel" = "Yes, restart";
+"gameOverModalRejectActionLabel" = "No, exit the app";
