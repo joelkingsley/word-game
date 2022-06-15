@@ -5,5 +5,5 @@ WordGame is a language game where in each turn a English word and its Spanish tr
 Blog page containing screenshots: https://joelkingsleyr.com/portfolio/word-game/
 
 Dependencies used:
-Swinject - For Dependency Injection
-Nimble - For righting cleaner unit tests
+* Swinject - For Dependency Injection
+* Nimble - For righting cleaner unit tests
