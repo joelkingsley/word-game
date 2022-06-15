@@ -6,4 +6,4 @@ Blog page containing screenshots: https://joelkingsleyr.com/portfolio/word-game/
 
 Dependencies used:
 * Swinject - For Dependency Injection
-* Nimble - For righting cleaner unit tests
+* Nimble - For writing cleaner unit tests
